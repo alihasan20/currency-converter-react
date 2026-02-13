@@ -3,10 +3,10 @@ import InputBox from './components/InputBox'
 import useCurrencyInfo from './hooks/useCurrencyInfo'
 
   function App() {
-  const [amount, setAmount] = useState(0)
+  const [amount, setAmount] = useState("")
   const [from, setFrom] = useState("usd")
   const [to, setTo] = useState("inr")
-  const [convertedAmount, setConvertedAmount] = useState(0)
+  const [convertedAmount, setConvertedAmount] = useState("")
   
   const currencyInfo = useCurrencyInfo(from)
 
@@ -19,13 +19,16 @@ import useCurrencyInfo from './hooks/useCurrencyInfo'
     setAmount(convertedAmount)
   }
 
-  const convert = () => {setConvertedAmount(amount * currencyInfo[to])}
+const convert = () => {
+  if (!amount) return
+  setConvertedAmount(Number(amount) * currencyInfo[to])
+}
 
     return (
         <div
             className="w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat"
             style={{
-                backgroundImage: `url('https://images.pexels.com/photos/29421579/pexels-photo-29421579.jpeg')`,
+              backgroundImage: `url('https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg')`,
             }}
         >
         <div className="w-full">
@@ -52,7 +55,7 @@ import useCurrencyInfo from './hooks/useCurrencyInfo'
                         className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-md bg-blue-600 text-white px-2 py-0.5"
                         onClick={swap}
                     >
-                        swap
+                        Swap
                     </button>
                 </div>
                 <div className="w-full mt-1 mb-4">
